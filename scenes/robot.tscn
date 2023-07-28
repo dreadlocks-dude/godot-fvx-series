@@ -1,0 +1,155 @@
+[gd_scene load_steps=12 format=3 uid="uid://bksr5h3xaucd7"]
+
+[ext_resource type="Material" uid="uid://cm5r0usu6psp2" path="res://materials/floor.tres" id="1_vsa5j"]
+[ext_resource type="ArrayMesh" uid="uid://bg3uyxda0f6on" path="res://models/WavingRobot3D.obj" id="2_p3fgc"]
+[ext_resource type="Shader" path="res://shaders/basic_angle_view.gdshader" id="3_aftqm"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_4i0kc"]
+size = Vector2(100, 100)
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_n0yxm"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_2xvtl"]
+sky_material = SubResource("ProceduralSkyMaterial_n0yxm")
+
+[sub_resource type="Environment" id="Environment_wh3hm"]
+background_mode = 1
+sky = SubResource("Sky_2xvtl")
+tonemap_mode = 3
+ssr_max_steps = 128
+ssao_enabled = true
+ssao_light_affect = 1.0
+ssao_ao_channel_affect = 1.0
+sdfgi_cascades = 8
+sdfgi_min_cell_size = 0.00244141
+sdfgi_cascade0_distance = 0.15625
+sdfgi_max_distance = 40.0001
+sdfgi_y_scale = 2
+sdfgi_energy = 0.5
+glow_enabled = true
+glow_levels/1 = 1.0
+glow_levels/3 = 0.0
+glow_levels/5 = 0.0
+glow_intensity = 1.0
+glow_hdr_threshold = 0.1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ifl08"]
+metallic = 0.27
+roughness = 0.5
+emission = Color(0.203922, 0.203922, 0.203922, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ooriu"]
+render_priority = 0
+shader = ExtResource("3_aftqm")
+shader_parameter/orb_color = Color(0, 0.890196, 1, 0.552941)
+shader_parameter/curve_power = 0.01
+shader_parameter/animate = true
+shader_parameter/animation_cycle_duration = 4.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_i5etg"]
+render_priority = 0
+shader = ExtResource("3_aftqm")
+shader_parameter/orb_color = Color(0, 0.890196, 1, 0.552941)
+shader_parameter/curve_power = 0.165
+shader_parameter/animate = false
+shader_parameter/animation_cycle_duration = 4.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fi1lx"]
+render_priority = 0
+shader = ExtResource("3_aftqm")
+shader_parameter/orb_color = Color(0, 0.890196, 1, 0.552941)
+shader_parameter/curve_power = 2.245
+shader_parameter/animate = false
+shader_parameter/animation_cycle_duration = 4.0
+
+[node name="Robot" type="Node3D"]
+
+[node name="FloorMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00580871, 0)
+material_override = ExtResource("1_vsa5j")
+mesh = SubResource("PlaneMesh_4i0kc")
+metadata/_edit_lock_ = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="FloorMesh"]
+environment = SubResource("Environment_wh3hm")
+
+[node name="WavingRobotBasic" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.183559, 0, 0.0794104, 0, 0.2, 0, -0.0794104, 0, 0.183559, 0, 0.951227, 0)
+visible = false
+material_override = SubResource("StandardMaterial3D_ifl08")
+cast_shadow = 0
+mesh = ExtResource("2_p3fgc")
+
+[node name="Shadow" type="MeshInstance3D" parent="WavingRobotBasic"]
+transparency = 1.0
+mesh = ExtResource("2_p3fgc")
+skeleton = NodePath("../..")
+metadata/_edit_lock_ = true
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.881836, 1.60179, 0.452993)
+light_energy = 0.1
+shadow_enabled = true
+shadow_opacity = 0.5
+shadow_blur = 5.755
+omni_range = 10.45
+omni_attenuation = 0.0063457
+
+[node name="WavingRobotUnshaded" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.183559, 0, 0.0794104, 0, 0.2, 0, -0.0794104, 0, 0.183559, -0.0470723, 0.951227, -0.0740439)
+material_override = SubResource("ShaderMaterial_ooriu")
+cast_shadow = 0
+mesh = ExtResource("2_p3fgc")
+
+[node name="Shadow" type="MeshInstance3D" parent="WavingRobotUnshaded"]
+transparency = 1.0
+mesh = ExtResource("2_p3fgc")
+skeleton = NodePath("../..")
+metadata/_edit_lock_ = true
+
+[node name="OmniLight3D" type="OmniLight3D" parent="WavingRobotUnshaded"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.29452, 0)
+light_color = Color(0, 1, 1, 1)
+light_energy = 0.1
+omni_range = 0.992
+omni_attenuation = 0.31864
+
+[node name="WavingRobotUnshaded2" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.085664, 0, 0.180725, 0, 0.2, 0, -0.180725, 0, 0.085664, -0.817433, 0.951227, 0.603465)
+material_override = SubResource("ShaderMaterial_i5etg")
+cast_shadow = 0
+mesh = ExtResource("2_p3fgc")
+
+[node name="Shadow" type="MeshInstance3D" parent="WavingRobotUnshaded2"]
+transparency = 1.0
+mesh = ExtResource("2_p3fgc")
+skeleton = NodePath("../..")
+metadata/_edit_lock_ = true
+
+[node name="OmniLight3D" type="OmniLight3D" parent="WavingRobotUnshaded2"]
+transform = Transform3D(1, 0, -2.38419e-08, 0, 1, 0, 2.38419e-08, 0, 1, 0, -2.29452, 0)
+light_color = Color(0, 1, 1, 1)
+light_energy = 0.1
+omni_range = 0.992
+omni_attenuation = 0.31864
+
+[node name="WavingRobotUnshaded3" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.188247, 0, -0.0675505, 0, 0.2, 0, 0.0675505, 0, 0.188247, 0.884073, 0.951227, -0.600176)
+material_override = SubResource("ShaderMaterial_fi1lx")
+cast_shadow = 0
+mesh = ExtResource("2_p3fgc")
+
+[node name="Shadow" type="MeshInstance3D" parent="WavingRobotUnshaded3"]
+transparency = 1.0
+mesh = ExtResource("2_p3fgc")
+skeleton = NodePath("../..")
+metadata/_edit_lock_ = true
+
+[node name="OmniLight3D" type="OmniLight3D" parent="WavingRobotUnshaded3"]
+transform = Transform3D(1, 0, 7.15256e-08, 0, 1, 0, -7.15256e-08, 0, 1, 0, -2.29452, 0)
+light_color = Color(0, 1, 1, 1)
+light_energy = 0.1
+omni_range = 0.992
+omni_attenuation = 0.31864

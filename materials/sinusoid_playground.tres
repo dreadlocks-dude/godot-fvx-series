@@ -1,0 +1,19 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://baimr8mo202x6"]
+
+[ext_resource type="Shader" uid="uid://crsvw6dhwdnp3" path="res://shaders/cosine_function_explore.tres" id="1_gp54q"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_gp54q")
+shader_parameter/albedo = Color(0.717647, 1, 0.494118, 1)
+shader_parameter/x_scale = 3.0
+shader_parameter/x_shift = 0.0
+shader_parameter/y_shift = 0.0
+shader_parameter/y_scale = 1.0
+shader_parameter/apply_abs = false
+shader_parameter/apply_mirror = false
+shader_parameter/animation_duration = 4.0
+shader_parameter/animate_x_scale = false
+shader_parameter/animate_y_scale = false
+shader_parameter/animate_x_shift = false
+shader_parameter/animate_y_shift = false

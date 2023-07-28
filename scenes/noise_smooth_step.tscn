@@ -1,0 +1,77 @@
+[gd_scene load_steps=6 format=3 uid="uid://bqm8q54bmcgy2"]
+
+[ext_resource type="PackedScene" uid="uid://3tn6fclrin6c" path="res://scenes/floor.tscn" id="1_uealh"]
+[ext_resource type="Texture2D" uid="uid://bwpsx6wtxc2m7" path="res://textures/CloudNoise.tres" id="2_dbcw4"]
+
+[sub_resource type="Shader" id="Shader_o2h6j"]
+code = "shader_type spatial;
+render_mode unshaded;
+
+uniform sampler2D noise: hint_default_white;
+uniform float threshold: hint_range(0.0, 0.97) = 0.5;
+uniform bool animate_edge = false;
+uniform bool animate_width = true;
+
+const float animation_speed = 0.3333;
+
+void fragment() {
+	float x = fract(UV.x * 3.0);
+	vec3 color = texture(noise, vec2(x, UV.y)).rgb;
+	if (UV.x > 0.3333) {
+		
+		// Draw the same texture after smoothstep
+		float phase = threshold;
+		float left_edge;
+		float right_edge;
+		if (animate_width) {
+			phase = cos(TIME * animation_speed * TAU) * 0.245 + 0.25;
+			left_edge = 0.5 - phase;
+			right_edge = 0.5 + phase;
+		} else {
+			if (animate_edge) {
+				phase = cos(TIME * animation_speed * TAU) * 0.493 + 0.493;
+			}
+			left_edge = phase;
+			right_edge = phase + 0.03;
+		}
+		if (UV.x > 0.66666) {
+			color = smoothstep(left_edge, right_edge, color);
+		} else {
+			if (x < 0.1) {
+				color = vec3(pow(clamp(1.0 - UV.y * 1.1, 0.0, 1.0), 2.2));
+			} else if (UV.y > 0.9) {
+				color = vec3(pow(x * 1.1 - 0.1, 2.2));
+			} else {
+				float gradient = smoothstep(left_edge, right_edge, x * 1.1 - 0.1);
+				float line = abs(gradient + UV.y * 1.13 - 1.01);
+				float line_width = fwidth(line) * 5.0;
+				float plot_line = smoothstep(0.0, line_width, line);
+				color = vec3(1.0 - plot_line, 0.0, 0.0);
+				color = pow(mix(vec3(gradient), color, color.r), vec3(2.2));
+			}
+		}
+	}
+	ALBEDO = color;
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_t0sdl"]
+render_priority = 0
+shader = SubResource("Shader_o2h6j")
+shader_parameter/threshold = 0.502
+shader_parameter/animate_edge = false
+shader_parameter/animate_width = true
+shader_parameter/noise = ExtResource("2_dbcw4")
+
+[sub_resource type="QuadMesh" id="QuadMesh_iuxy5"]
+size = Vector2(3, 1)
+
+[node name="NoiseSmoothStep" type="Node3D"]
+
+[node name="FloorMesh" parent="." instance=ExtResource("1_uealh")]
+metadata/_edit_lock_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.608761, 0.0815508, -0.789151, 0, 0.994703, 0.102793, 0.793353, 0.0625761, -0.605537, -0.27312, 0.608046, -0.218567)
+material_override = SubResource("ShaderMaterial_t0sdl")
+mesh = SubResource("QuadMesh_iuxy5")

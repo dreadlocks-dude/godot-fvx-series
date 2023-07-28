@@ -1,0 +1,791 @@
+[gd_scene load_steps=45 format=3 uid="uid://bmehhkkvm10n1"]
+
+[ext_resource type="Shader" path="res://shaders/Pillars.gdshader" id="1_wgss3"]
+[ext_resource type="Shader" path="res://shaders/teleport.gdshader" id="2_1a8uf"]
+[ext_resource type="Texture2D" uid="uid://do0gpq4cbsw1x" path="res://textures/grid/TemplateGrid_orm.png" id="2_16f7j"]
+[ext_resource type="Texture2D" uid="uid://b0ca8bn3twyr3" path="res://textures/grid/TemplateGrid_albedo.png" id="2_ba8vu"]
+[ext_resource type="Environment" uid="uid://bkpugk6n20mxh" path="res://resources/simple-blur-environmnent.tres" id="2_jk0ib"]
+[ext_resource type="Texture2D" uid="uid://buljify4aiv5f" path="res://textures/grid/TemplateGrid_normal.png" id="3_8ewfr"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jnggj"]
+albedo_color = Color(0.211765, 0.211765, 0.211765, 1)
+albedo_texture = ExtResource("2_ba8vu")
+metallic = 0.3
+metallic_specular = 0.3
+metallic_texture = ExtResource("2_16f7j")
+metallic_texture_channel = 1
+roughness = 0.7
+roughness_texture = ExtResource("2_16f7j")
+roughness_texture_channel = 1
+normal_enabled = true
+normal_scale = 1.5
+normal_texture = ExtResource("3_8ewfr")
+uv1_scale = Vector3(20, 20, 20)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_nukd4"]
+size = Vector2(20, 20)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sm5e3"]
+render_priority = 0
+shader = ExtResource("1_wgss3")
+shader_parameter/albedo = Color(0.580392, 0.431373, 0.87451, 0.509804)
+shader_parameter/brightness = 3.98
+shader_parameter/small_lines = 1.0
+shader_parameter/medium_lines = 1.0
+shader_parameter/big_lines = 1.0
+shader_parameter/horizontal_fade = 1.0
+shader_parameter/vertical_fade = 1.336
+shader_parameter/animation_speed = 4.933
+
+[sub_resource type="QuadMesh" id="QuadMesh_uyhie"]
+size = Vector2(0.97, 2.16)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fr55b"]
+render_priority = 0
+shader = ExtResource("2_1a8uf")
+shader_parameter/albedo = Color(0.686275, 0.498039, 1, 0.505882)
+shader_parameter/brightness = 4.15
+shader_parameter/bottom_width = 1.0
+shader_parameter/portal_curve = 20.0
+shader_parameter/top_fade = 0.476
+shader_parameter/bottom_fade = 0.121
+shader_parameter/central_fade = 0.41
+shader_parameter/horizontal_lines = 10.0
+shader_parameter/horizontal_lines_width = 0.405
+shader_parameter/vertical_lines = 10.0
+shader_parameter/vertical_lines_strength = 0.466
+shader_parameter/vertical_lines_width = 1.0
+shader_parameter/line_noise = 0.476
+shader_parameter/speed = 3.0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_bpb4x"]
+height = 1.5
+radial_segments = 32
+rings = 16
+cap_top = false
+cap_bottom = false
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_p2xk6"]
+render_priority = 0
+shader = ExtResource("1_wgss3")
+shader_parameter/albedo = Color(0.580392, 0.431373, 0.87451, 0.509804)
+shader_parameter/brightness = 3.678
+shader_parameter/small_lines = 1.0
+shader_parameter/medium_lines = 1.0
+shader_parameter/big_lines = 1.0
+shader_parameter/horizontal_fade = 1.0
+shader_parameter/vertical_fade = 2.243
+shader_parameter/animation_speed = 2.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rvnpx"]
+render_priority = 0
+shader = ExtResource("2_1a8uf")
+shader_parameter/albedo = Color(0.686275, 0.498039, 1, 0.505882)
+shader_parameter/brightness = 4.15
+shader_parameter/bottom_width = 1.0
+shader_parameter/portal_curve = 20.0
+shader_parameter/top_fade = 0.59
+shader_parameter/bottom_fade = 0.055
+shader_parameter/central_fade = 0.364
+shader_parameter/horizontal_lines = 10.0
+shader_parameter/horizontal_lines_width = 0.771
+shader_parameter/vertical_lines = 10.0
+shader_parameter/vertical_lines_strength = 1.0
+shader_parameter/vertical_lines_width = 1.0
+shader_parameter/line_noise = 0.49
+shader_parameter/speed = 2.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_u7ujn"]
+render_priority = 0
+shader = ExtResource("1_wgss3")
+shader_parameter/albedo = Color(1, 0.862745, 0.231373, 0.509804)
+shader_parameter/brightness = 4.973
+shader_parameter/small_lines = 1.0
+shader_parameter/medium_lines = 1.0
+shader_parameter/big_lines = 1.0
+shader_parameter/horizontal_fade = 0.315
+shader_parameter/vertical_fade = 1.35
+shader_parameter/animation_speed = 4.799
+
+[sub_resource type="QuadMesh" id="QuadMesh_wjh4q"]
+size = Vector2(0.345, 3.525)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lwni3"]
+render_priority = 0
+shader = ExtResource("2_1a8uf")
+shader_parameter/albedo = Color(0.992157, 0.823529, 0, 0.286275)
+shader_parameter/brightness = 4.15
+shader_parameter/bottom_width = 0.0
+shader_parameter/portal_curve = 0.0
+shader_parameter/top_fade = 1.322
+shader_parameter/bottom_fade = 0.055
+shader_parameter/central_fade = 0.364
+shader_parameter/horizontal_lines = 0.0
+shader_parameter/horizontal_lines_width = 4.523
+shader_parameter/vertical_lines = 10.0
+shader_parameter/vertical_lines_strength = 0.977
+shader_parameter/vertical_lines_width = 0.176
+shader_parameter/line_noise = 0.257
+shader_parameter/speed = 5.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ommdt"]
+render_priority = 0
+shader = ExtResource("2_1a8uf")
+shader_parameter/albedo = Color(0.992157, 0.823529, 0, 0.286275)
+shader_parameter/brightness = 4.15
+shader_parameter/bottom_width = 0.185
+shader_parameter/portal_curve = 15.148
+shader_parameter/top_fade = 1.814
+shader_parameter/bottom_fade = 0.501
+shader_parameter/central_fade = 0.364
+shader_parameter/horizontal_lines = 10.0
+shader_parameter/horizontal_lines_width = 0.244
+shader_parameter/vertical_lines = 0.0
+shader_parameter/vertical_lines_strength = 0.977
+shader_parameter/vertical_lines_width = 3.082
+shader_parameter/line_noise = 0.399
+shader_parameter/speed = -15.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_knpau"]
+render_priority = 0
+shader = ExtResource("1_wgss3")
+shader_parameter/albedo = Color(0.34902, 0.603922, 0, 0.207843)
+shader_parameter/brightness = 10.0
+shader_parameter/small_lines = 1.0
+shader_parameter/medium_lines = 1.0
+shader_parameter/big_lines = 1.0
+shader_parameter/horizontal_fade = 0.88
+shader_parameter/vertical_fade = 10.0
+shader_parameter/animation_speed = 1.826
+
+[sub_resource type="QuadMesh" id="QuadMesh_cb3ci"]
+size = Vector2(0.97, 1.17)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vdchg"]
+render_priority = 0
+shader = ExtResource("2_1a8uf")
+shader_parameter/albedo = Color(0.321569, 1, 0, 0.392157)
+shader_parameter/brightness = 10.0
+shader_parameter/bottom_width = 1.0
+shader_parameter/portal_curve = 0.552
+shader_parameter/top_fade = 0.091
+shader_parameter/bottom_fade = 3.087
+shader_parameter/central_fade = 1.188
+shader_parameter/horizontal_lines = 20.0
+shader_parameter/horizontal_lines_width = 1.0
+shader_parameter/vertical_lines = 100.0
+shader_parameter/vertical_lines_strength = 0.931
+shader_parameter/vertical_lines_width = 0.268
+shader_parameter/line_noise = 0.394
+shader_parameter/speed = -1.0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_jpf5y"]
+height = 1.0
+radial_segments = 32
+rings = 16
+cap_top = false
+cap_bottom = false
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_iogmb"]
+render_priority = 0
+shader = ExtResource("1_wgss3")
+shader_parameter/albedo = Color(0, 1, 0, 0.207843)
+shader_parameter/brightness = 0.833
+shader_parameter/small_lines = 1.0
+shader_parameter/medium_lines = 0.679
+shader_parameter/big_lines = 0.203
+shader_parameter/horizontal_fade = 0.674
+shader_parameter/vertical_fade = 10.0
+shader_parameter/animation_speed = 0.567
+
+[sub_resource type="QuadMesh" id="QuadMesh_mm62j"]
+size = Vector2(0.97, 4.085)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ccdto"]
+render_priority = 0
+shader = ExtResource("2_1a8uf")
+shader_parameter/albedo = Color(0.686275, 0.498039, 1, 0.505882)
+shader_parameter/brightness = 2.0
+shader_parameter/bottom_width = 0.0
+shader_parameter/portal_curve = 0.0
+shader_parameter/top_fade = 0.0
+shader_parameter/bottom_fade = 0.0
+shader_parameter/central_fade = 0.0
+shader_parameter/horizontal_lines = 10.0
+shader_parameter/horizontal_lines_width = 0.179
+shader_parameter/vertical_lines = 0.0
+shader_parameter/vertical_lines_strength = 0.5
+shader_parameter/vertical_lines_width = 1.0
+shader_parameter/line_noise = 0.0
+shader_parameter/speed = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_igg1h"]
+render_priority = 0
+shader = ExtResource("2_1a8uf")
+shader_parameter/albedo = Color(0.686275, 0.498039, 1, 0.505882)
+shader_parameter/brightness = 1.0
+shader_parameter/bottom_width = 0.0
+shader_parameter/portal_curve = 0.0
+shader_parameter/top_fade = 0.0
+shader_parameter/bottom_fade = 0.0
+shader_parameter/central_fade = 0.0
+shader_parameter/horizontal_lines = 0.0
+shader_parameter/horizontal_lines_width = 1.0
+shader_parameter/vertical_lines = 10.0
+shader_parameter/vertical_lines_strength = 0.54
+shader_parameter/vertical_lines_width = 0.319
+shader_parameter/line_noise = 0.244
+shader_parameter/speed = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3y5m4"]
+render_priority = 0
+shader = ExtResource("2_1a8uf")
+shader_parameter/albedo = Color(0.686275, 0.498039, 1, 0.505882)
+shader_parameter/brightness = 1.0
+shader_parameter/bottom_width = 0.0
+shader_parameter/portal_curve = 0.0
+shader_parameter/top_fade = 1.0
+shader_parameter/bottom_fade = 0.0
+shader_parameter/central_fade = 0.0
+shader_parameter/horizontal_lines = 0.0
+shader_parameter/horizontal_lines_width = 1.45
+shader_parameter/vertical_lines = 0.0
+shader_parameter/vertical_lines_strength = 0.5
+shader_parameter/vertical_lines_width = 0.227
+shader_parameter/line_noise = 0.3
+shader_parameter/speed = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7c43p"]
+render_priority = 0
+shader = ExtResource("2_1a8uf")
+shader_parameter/albedo = Color(0.686275, 0.498039, 1, 0.505882)
+shader_parameter/brightness = 1.0
+shader_parameter/bottom_width = 0.0
+shader_parameter/portal_curve = 0.0
+shader_parameter/top_fade = 0.0
+shader_parameter/bottom_fade = 0.314
+shader_parameter/central_fade = 0.0
+shader_parameter/horizontal_lines = 0.0
+shader_parameter/horizontal_lines_width = 1.45
+shader_parameter/vertical_lines = 0.0
+shader_parameter/vertical_lines_strength = 0.5
+shader_parameter/vertical_lines_width = 0.227
+shader_parameter/line_noise = 0.3
+shader_parameter/speed = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2711w"]
+render_priority = 0
+shader = ExtResource("2_1a8uf")
+shader_parameter/albedo = Color(0.686275, 0.498039, 1, 0.505882)
+shader_parameter/brightness = 1.0
+shader_parameter/bottom_width = 0.0
+shader_parameter/portal_curve = 0.0
+shader_parameter/top_fade = 0.0
+shader_parameter/bottom_fade = 0.0
+shader_parameter/central_fade = 2.111
+shader_parameter/horizontal_lines = 0.0
+shader_parameter/horizontal_lines_width = 1.45
+shader_parameter/vertical_lines = 0.0
+shader_parameter/vertical_lines_strength = 0.5
+shader_parameter/vertical_lines_width = 0.227
+shader_parameter/line_noise = 0.3
+shader_parameter/speed = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_px75e"]
+render_priority = 0
+shader = ExtResource("2_1a8uf")
+shader_parameter/albedo = Color(0.686275, 0.498039, 1, 0.505882)
+shader_parameter/brightness = 1.0
+shader_parameter/bottom_width = 0.474
+shader_parameter/portal_curve = 20.0
+shader_parameter/top_fade = 0.0
+shader_parameter/bottom_fade = 0.0
+shader_parameter/central_fade = 0.628
+shader_parameter/horizontal_lines = 0.0
+shader_parameter/horizontal_lines_width = 1.45
+shader_parameter/vertical_lines = 0.0
+shader_parameter/vertical_lines_strength = 0.5
+shader_parameter/vertical_lines_width = 0.227
+shader_parameter/line_noise = 0.3
+shader_parameter/speed = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_24lta"]
+render_priority = 0
+shader = ExtResource("1_wgss3")
+shader_parameter/albedo = Color(0.580392, 0.431373, 0.87451, 0.509804)
+shader_parameter/brightness = 3.98
+shader_parameter/small_lines = 0.0
+shader_parameter/medium_lines = 0.0
+shader_parameter/big_lines = 1.0
+shader_parameter/horizontal_fade = 0.001
+shader_parameter/vertical_fade = 0.001
+shader_parameter/animation_speed = 3.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bp263"]
+render_priority = 0
+shader = ExtResource("1_wgss3")
+shader_parameter/albedo = Color(0.580392, 0.431373, 0.87451, 0.509804)
+shader_parameter/brightness = 3.98
+shader_parameter/small_lines = 0.0
+shader_parameter/medium_lines = 1.0
+shader_parameter/big_lines = 0.0
+shader_parameter/horizontal_fade = 0.001
+shader_parameter/vertical_fade = 0.001
+shader_parameter/animation_speed = 3.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2fnfx"]
+render_priority = 0
+shader = ExtResource("1_wgss3")
+shader_parameter/albedo = Color(0.580392, 0.431373, 0.87451, 0.509804)
+shader_parameter/brightness = 3.98
+shader_parameter/small_lines = 1.0
+shader_parameter/medium_lines = 0.0
+shader_parameter/big_lines = 0.0
+shader_parameter/horizontal_fade = 0.001
+shader_parameter/vertical_fade = 0.001
+shader_parameter/animation_speed = 3.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_j8t5s"]
+render_priority = 0
+shader = ExtResource("1_wgss3")
+shader_parameter/albedo = Color(0.580392, 0.431373, 0.87451, 0.509804)
+shader_parameter/brightness = 3.98
+shader_parameter/small_lines = 0.0
+shader_parameter/medium_lines = 0.0
+shader_parameter/big_lines = 0.0
+shader_parameter/horizontal_fade = 1.0
+shader_parameter/vertical_fade = 0.001
+shader_parameter/animation_speed = 3.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_b5vcn"]
+render_priority = 0
+shader = ExtResource("1_wgss3")
+shader_parameter/albedo = Color(0.580392, 0.431373, 0.87451, 0.509804)
+shader_parameter/brightness = 3.98
+shader_parameter/small_lines = 0.0
+shader_parameter/medium_lines = 0.0
+shader_parameter/big_lines = 0.0
+shader_parameter/horizontal_fade = 0.001
+shader_parameter/vertical_fade = 1.042
+shader_parameter/animation_speed = 3.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5qagj"]
+render_priority = 0
+shader = ExtResource("1_wgss3")
+shader_parameter/albedo = Color(0.580392, 0.431373, 0.87451, 0.509804)
+shader_parameter/brightness = 2.0
+shader_parameter/small_lines = 1.0
+shader_parameter/medium_lines = 0.0
+shader_parameter/big_lines = 1.0
+shader_parameter/horizontal_fade = 0.001
+shader_parameter/vertical_fade = 0.001
+shader_parameter/animation_speed = 3.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2niuv"]
+render_priority = 0
+shader = ExtResource("1_wgss3")
+shader_parameter/albedo = Color(0.580392, 0.431373, 0.87451, 0.509804)
+shader_parameter/brightness = 2.0
+shader_parameter/small_lines = 1.0
+shader_parameter/medium_lines = 1.0
+shader_parameter/big_lines = 1.0
+shader_parameter/horizontal_fade = 0.001
+shader_parameter/vertical_fade = 0.001
+shader_parameter/animation_speed = 3.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_10o2g"]
+render_priority = 0
+shader = ExtResource("1_wgss3")
+shader_parameter/albedo = Color(0.580392, 0.431373, 0.87451, 0.509804)
+shader_parameter/brightness = 2.0
+shader_parameter/small_lines = 0.0
+shader_parameter/medium_lines = 0.0
+shader_parameter/big_lines = 0.0
+shader_parameter/horizontal_fade = 0.599
+shader_parameter/vertical_fade = 1.224
+shader_parameter/animation_speed = 3.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7u6ka"]
+render_priority = 0
+shader = ExtResource("1_wgss3")
+shader_parameter/albedo = Color(0.580392, 0.431373, 0.87451, 0.509804)
+shader_parameter/brightness = 2.0
+shader_parameter/small_lines = 1.0
+shader_parameter/medium_lines = 1.0
+shader_parameter/big_lines = 1.0
+shader_parameter/horizontal_fade = 0.519
+shader_parameter/vertical_fade = 1.783
+shader_parameter/animation_speed = 3.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_05ky1"]
+render_priority = 0
+shader = ExtResource("1_wgss3")
+shader_parameter/albedo = Color(0.580392, 0.431373, 0.87451, 0.509804)
+shader_parameter/brightness = 2.0
+shader_parameter/small_lines = 1.0
+shader_parameter/medium_lines = 1.0
+shader_parameter/big_lines = 1.0
+shader_parameter/horizontal_fade = 0.001
+shader_parameter/vertical_fade = 0.001
+shader_parameter/animation_speed = 3.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6vrtw"]
+render_priority = 0
+shader = ExtResource("1_wgss3")
+shader_parameter/albedo = Color(0.580392, 0.431373, 0.87451, 0.509804)
+shader_parameter/brightness = 3.98
+shader_parameter/small_lines = 0.0
+shader_parameter/medium_lines = 0.0
+shader_parameter/big_lines = 0.0
+shader_parameter/horizontal_fade = 1.0
+shader_parameter/vertical_fade = 0.001
+shader_parameter/animation_speed = 3.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wbpga"]
+render_priority = 0
+shader = ExtResource("1_wgss3")
+shader_parameter/albedo = Color(0.580392, 0.431373, 0.87451, 0.509804)
+shader_parameter/brightness = 1.602
+shader_parameter/small_lines = 1.0
+shader_parameter/medium_lines = 1.0
+shader_parameter/big_lines = 1.0
+shader_parameter/horizontal_fade = 0.875
+shader_parameter/vertical_fade = 0.001
+shader_parameter/animation_speed = 3.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yvkna"]
+render_priority = 0
+shader = ExtResource("1_wgss3")
+shader_parameter/albedo = Color(0.580392, 0.431373, 0.87451, 0.509804)
+shader_parameter/brightness = 2.0
+shader_parameter/small_lines = 0.0
+shader_parameter/medium_lines = 0.0
+shader_parameter/big_lines = 0.0
+shader_parameter/horizontal_fade = 0.001
+shader_parameter/vertical_fade = 2.12
+shader_parameter/animation_speed = 3.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_l6lu1"]
+render_priority = 0
+shader = ExtResource("1_wgss3")
+shader_parameter/albedo = Color(0.580392, 0.431373, 0.87451, 0.509804)
+shader_parameter/brightness = 3.0
+shader_parameter/small_lines = 1.0
+shader_parameter/medium_lines = 1.0
+shader_parameter/big_lines = 1.0
+shader_parameter/horizontal_fade = 0.545
+shader_parameter/vertical_fade = 2.231
+shader_parameter/animation_speed = 3.0
+
+[node name="Teleport" type="Node3D"]
+
+[node name="Scene" type="Node3D" parent="."]
+
+[node name="Floor" type="MeshInstance3D" parent="Scene"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0513438, -3.90466)
+material_override = SubResource("StandardMaterial3D_jnggj")
+mesh = SubResource("PlaneMesh_nukd4")
+skeleton = NodePath("../..")
+metadata/_edit_lock_ = true
+
+[node name="Sun" type="DirectionalLight3D" parent="Scene"]
+transform = Transform3D(0.656059, -0.721732, -0.220656, 0, -0.292372, 0.956305, -0.754709, -0.627393, -0.191813, 6.43886, 1.52199, -10.2808)
+light_energy = 0.5
+shadow_bias = 0.05
+shadow_normal_bias = 1.53
+shadow_blur = 0.1
+directional_shadow_blend_splits = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Scene"]
+environment = ExtResource("2_jk0ib")
+
+[node name="Effect" type="Node3D" parent="."]
+visible = false
+
+[node name="Pillars" type="MeshInstance3D" parent="Effect"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.291434, 0.709741, 2.09272)
+material_override = SubResource("ShaderMaterial_sm5e3")
+mesh = SubResource("QuadMesh_uyhie")
+skeleton = NodePath("../..")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Effect"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.291434, 0.198004, 2.09272)
+light_color = Color(0.733333, 0.556863, 0.862745, 1)
+light_energy = 16.0
+light_specular = 0.092
+omni_range = 2.075
+omni_attenuation = 1.86607
+
+[node name="Beam" type="MeshInstance3D" parent="Effect"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.291434, 0.809758, 2.09272)
+material_override = SubResource("ShaderMaterial_fr55b")
+mesh = SubResource("CylinderMesh_bpb4x")
+skeleton = NodePath("../..")
+
+[node name="DemoVariations" type="Node3D" parent="."]
+
+[node name="Purple" type="MeshInstance3D" parent="DemoVariations"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.49044, 0.709741, 2.09272)
+material_override = SubResource("ShaderMaterial_p2xk6")
+mesh = SubResource("QuadMesh_uyhie")
+skeleton = NodePath("../..")
+
+[node name="Beam" type="MeshInstance3D" parent="DemoVariations/Purple"]
+transform = Transform3D(-0.770513, 0, -0.637424, 0, 1, 0, 0.637424, 0, -0.770513, 0.0270793, 0.100017, 0)
+material_override = SubResource("ShaderMaterial_rvnpx")
+mesh = SubResource("CylinderMesh_bpb4x")
+skeleton = NodePath("../../..")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="DemoVariations/Purple"]
+light_color = Color(0.733333, 0.556863, 0.862745, 1)
+light_energy = 16.0
+light_specular = 0.092
+omni_range = 2.075
+omni_attenuation = 1.86607
+
+[node name="LightPillar" type="MeshInstance3D" parent="DemoVariations"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.168718, 0.0948192, 2.03915)
+material_override = SubResource("ShaderMaterial_u7ujn")
+mesh = SubResource("QuadMesh_wjh4q")
+skeleton = NodePath("../..")
+
+[node name="Beam" type="MeshInstance3D" parent="DemoVariations/LightPillar"]
+transform = Transform3D(-0.385257, 0, -0.318712, 0, 1, 0, 0.318712, 0, -0.385257, 0, 0.730095, 0)
+material_override = SubResource("ShaderMaterial_lwni3")
+mesh = SubResource("CylinderMesh_bpb4x")
+skeleton = NodePath("../../..")
+
+[node name="Beam2" type="MeshInstance3D" parent="DemoVariations/LightPillar"]
+transform = Transform3D(-0.462308, 0, -0.382454, 0, 1, 0, 0.382454, 0, -0.462308, 0, 0.617719, 0)
+material_override = SubResource("ShaderMaterial_ommdt")
+mesh = SubResource("CylinderMesh_bpb4x")
+skeleton = NodePath("../../..")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="DemoVariations/LightPillar"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.00180256, 0)
+light_color = Color(1, 0.945098, 0.768627, 1)
+light_energy = 5.376
+light_specular = 0.092
+omni_range = 1.27
+omni_attenuation = 2.54913
+
+[node name="Fireflies" type="MeshInstance3D" parent="DemoVariations"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.61703, 0.331566, 2.09272)
+material_override = SubResource("ShaderMaterial_knpau")
+mesh = SubResource("QuadMesh_cb3ci")
+skeleton = NodePath("../..")
+
+[node name="Beam" type="MeshInstance3D" parent="DemoVariations/Fireflies"]
+transform = Transform3D(-0.481728, 0, -0.439786, 0, 0.732286, 0, 0.39852, 0, -0.53161, 0, -0.0391224, 0)
+material_override = SubResource("ShaderMaterial_vdchg")
+mesh = SubResource("CylinderMesh_jpf5y")
+skeleton = NodePath("../../..")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="DemoVariations/Fireflies"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0046351, 0)
+light_color = Color(0, 0.768627, 0.403922, 1)
+light_energy = 5.636
+light_specular = 0.092
+omni_range = 1.482
+omni_attenuation = 0.870553
+
+[node name="Green" type="MeshInstance3D" parent="DemoVariations/Fireflies"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.190238, 0)
+material_override = SubResource("ShaderMaterial_iogmb")
+mesh = SubResource("QuadMesh_mm62j")
+skeleton = NodePath("../../..")
+
+[node name="Components" type="Node3D" parent="."]
+visible = false
+
+[node name="Pillars" type="MeshInstance3D" parent="Components"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.269879, 0.939578, 2.09272)
+material_override = SubResource("ShaderMaterial_sm5e3")
+mesh = SubResource("QuadMesh_uyhie")
+skeleton = NodePath("../..")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Components"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.23258, 0.373359, 2.09272)
+light_color = Color(0.733333, 0.556863, 0.862745, 1)
+light_energy = 16.0
+light_specular = 0.092
+omni_range = 1.49184
+omni_attenuation = 1.86607
+
+[node name="Beam" type="MeshInstance3D" parent="Components"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.332, 0.809758, 2.09272)
+material_override = SubResource("ShaderMaterial_fr55b")
+mesh = SubResource("CylinderMesh_bpb4x")
+skeleton = NodePath("../..")
+
+[node name="Beam components" type="Node3D" parent="."]
+transform = Transform3D(0.996876, 0, 0.0789811, 0, 1, 0, -0.0789811, 0, 0.996876, -0.0814363, 0, 1.30996)
+visible = false
+
+[node name="A" type="MeshInstance3D" parent="Beam components"]
+transform = Transform3D(0.996876, 0, -0.0789811, 0, 1, 0, 0.0789811, 0, 0.996876, -3.29177, 0.809758, 0.524409)
+material_override = SubResource("ShaderMaterial_ccdto")
+mesh = SubResource("CylinderMesh_bpb4x")
+skeleton = NodePath("../..")
+
+[node name="B" type="MeshInstance3D" parent="Beam components"]
+transform = Transform3D(0.996876, 0, -0.0789811, 0, 1, 0, 0.0789811, 0, 0.996876, -1.9391, 0.809758, 0.631579)
+material_override = SubResource("ShaderMaterial_igg1h")
+mesh = SubResource("CylinderMesh_bpb4x")
+skeleton = NodePath("../..")
+
+[node name="C" type="MeshInstance3D" parent="Beam components"]
+transform = Transform3D(0.996876, 0, -0.0789811, 0, 1, 0, 0.0789811, 0, 0.996876, -0.634667, 0.809758, 0.734928)
+material_override = SubResource("ShaderMaterial_3y5m4")
+mesh = SubResource("CylinderMesh_bpb4x")
+skeleton = NodePath("../..")
+
+[node name="D" type="MeshInstance3D" parent="Beam components"]
+transform = Transform3D(0.996876, 0, -0.0789811, 0, 1, 0, 0.0789811, 0, 0.996876, 0.686419, 0.809758, 0.839595)
+material_override = SubResource("ShaderMaterial_7c43p")
+mesh = SubResource("CylinderMesh_bpb4x")
+skeleton = NodePath("../..")
+
+[node name="E" type="MeshInstance3D" parent="Beam components"]
+transform = Transform3D(0.996876, 0, -0.0789811, 0, 1, 0, 0.0789811, 0, 0.996876, 2.05578, 0.796089, 0.948088)
+material_override = SubResource("ShaderMaterial_2711w")
+mesh = SubResource("CylinderMesh_bpb4x")
+skeleton = NodePath("../..")
+
+[node name="F" type="MeshInstance3D" parent="Beam components"]
+transform = Transform3D(0.996876, 0, -0.0789811, 0, 1, 0, 0.0789811, 0, 0.996876, 3.67674, 0.762995, 1.1124)
+material_override = SubResource("ShaderMaterial_px75e")
+mesh = SubResource("CylinderMesh_bpb4x")
+skeleton = NodePath("../..")
+
+[node name="Pillar components" type="Node3D" parent="."]
+visible = false
+
+[node name="A" type="MeshInstance3D" parent="Pillar components"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.73012, 0.939578, 2.09272)
+material_override = SubResource("ShaderMaterial_24lta")
+mesh = SubResource("QuadMesh_uyhie")
+skeleton = NodePath("../..")
+
+[node name="B" type="MeshInstance3D" parent="Pillar components"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.22711, 0.939578, 2.09272)
+material_override = SubResource("ShaderMaterial_bp263")
+mesh = SubResource("QuadMesh_uyhie")
+skeleton = NodePath("../..")
+
+[node name="C" type="MeshInstance3D" parent="Pillar components"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.269879, 0.939578, 2.09272)
+material_override = SubResource("ShaderMaterial_2fnfx")
+mesh = SubResource("QuadMesh_uyhie")
+skeleton = NodePath("../..")
+
+[node name="D" type="MeshInstance3D" parent="Pillar components"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.74282, 0.939578, 2.09272)
+material_override = SubResource("ShaderMaterial_j8t5s")
+mesh = SubResource("QuadMesh_uyhie")
+skeleton = NodePath("../..")
+
+[node name="E" type="MeshInstance3D" parent="Pillar components"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.26988, 0.939578, 2.09272)
+material_override = SubResource("ShaderMaterial_b5vcn")
+mesh = SubResource("QuadMesh_uyhie")
+skeleton = NodePath("../..")
+
+[node name="Pillar components ABC Combo" type="Node3D" parent="."]
+visible = false
+
+[node name="A" type="MeshInstance3D" parent="Pillar components ABC Combo"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.73012, 0.939578, 2.09272)
+material_override = SubResource("ShaderMaterial_24lta")
+mesh = SubResource("QuadMesh_uyhie")
+skeleton = NodePath("../..")
+
+[node name="B" type="MeshInstance3D" parent="Pillar components ABC Combo"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.22711, 0.939578, 2.09272)
+material_override = SubResource("ShaderMaterial_bp263")
+mesh = SubResource("QuadMesh_uyhie")
+skeleton = NodePath("../..")
+
+[node name="C" type="MeshInstance3D" parent="Pillar components ABC Combo"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.269879, 0.939578, 2.09272)
+material_override = SubResource("ShaderMaterial_2fnfx")
+mesh = SubResource("QuadMesh_uyhie")
+skeleton = NodePath("../..")
+
+[node name="AC" type="MeshInstance3D" parent="Pillar components ABC Combo"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.74282, 0.939578, 2.09272)
+material_override = SubResource("ShaderMaterial_5qagj")
+mesh = SubResource("QuadMesh_uyhie")
+skeleton = NodePath("../..")
+
+[node name="ABC" type="MeshInstance3D" parent="Pillar components ABC Combo"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.26988, 0.939578, 2.09272)
+material_override = SubResource("ShaderMaterial_2niuv")
+mesh = SubResource("QuadMesh_uyhie")
+skeleton = NodePath("../..")
+
+[node name="Pillar components Animation" type="Node3D" parent="."]
+visible = false
+
+[node name="A" type="MeshInstance3D" parent="Pillar components Animation"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.73012, 0.939578, 2.09272)
+material_override = SubResource("ShaderMaterial_24lta")
+mesh = SubResource("QuadMesh_uyhie")
+skeleton = NodePath("../..")
+
+[node name="B" type="MeshInstance3D" parent="Pillar components Animation"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.22711, 0.939578, 2.09272)
+material_override = SubResource("ShaderMaterial_bp263")
+mesh = SubResource("QuadMesh_uyhie")
+skeleton = NodePath("../..")
+
+[node name="C" type="MeshInstance3D" parent="Pillar components Animation"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.269879, 0.939578, 2.09272)
+material_override = SubResource("ShaderMaterial_2fnfx")
+mesh = SubResource("QuadMesh_uyhie")
+skeleton = NodePath("../..")
+
+[node name="DE" type="MeshInstance3D" parent="Pillar components Animation"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.74282, 0.939578, 2.09272)
+material_override = SubResource("ShaderMaterial_10o2g")
+mesh = SubResource("QuadMesh_uyhie")
+skeleton = NodePath("../..")
+
+[node name="ABCDE" type="MeshInstance3D" parent="Pillar components Animation"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.26988, 0.939578, 2.09272)
+material_override = SubResource("ShaderMaterial_7u6ka")
+mesh = SubResource("QuadMesh_uyhie")
+skeleton = NodePath("../..")
+
+[node name="Pillar components DE Mask" type="Node3D" parent="."]
+visible = false
+
+[node name="ABC" type="MeshInstance3D" parent="Pillar components DE Mask"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.73012, 0.939578, 2.09272)
+material_override = SubResource("ShaderMaterial_05ky1")
+mesh = SubResource("QuadMesh_uyhie")
+skeleton = NodePath("../..")
+
+[node name="D" type="MeshInstance3D" parent="Pillar components DE Mask"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.22711, 0.939578, 2.09272)
+material_override = SubResource("ShaderMaterial_6vrtw")
+mesh = SubResource("QuadMesh_uyhie")
+skeleton = NodePath("../..")
+
+[node name="ABCD" type="MeshInstance3D" parent="Pillar components DE Mask"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.269879, 0.939578, 2.09272)
+material_override = SubResource("ShaderMaterial_wbpga")
+mesh = SubResource("QuadMesh_uyhie")
+skeleton = NodePath("../..")
+
+[node name="E" type="MeshInstance3D" parent="Pillar components DE Mask"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.74282, 0.939578, 2.09272)
+material_override = SubResource("ShaderMaterial_yvkna")
+mesh = SubResource("QuadMesh_uyhie")
+skeleton = NodePath("../..")
+
+[node name="ABCDE" type="MeshInstance3D" parent="Pillar components DE Mask"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.26988, 0.939578, 2.09272)
+material_override = SubResource("ShaderMaterial_l6lu1")
+mesh = SubResource("QuadMesh_uyhie")
+skeleton = NodePath("../..")

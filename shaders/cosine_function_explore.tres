@@ -1,0 +1,124 @@
+[gd_resource type="Shader" format=3 uid="uid://crsvw6dhwdnp3"]
+
+[resource]
+code = "shader_type spatial;
+render_mode cull_disabled;
+
+uniform vec4 albedo: source_color;
+uniform float x_scale = 1.0;
+uniform float x_shift = 0.0;
+uniform float y_shift = 0.0;
+uniform float y_scale = 1.0;
+
+uniform bool apply_abs = false;
+uniform bool apply_mirror = false; 
+
+group_uniforms Animation;
+uniform float animation_duration = 4.0;
+uniform bool animate_x_scale = false;
+uniform bool animate_y_scale = false;
+uniform bool animate_x_shift = false;
+uniform bool animate_y_shift = false;
+
+const float size_adjust = 7.5; // Make is visually match our coordinate system
+
+float get_phase() {
+	return cos(TIME * TAU / animation_duration);
+}
+
+float get_curve_value(float x) {
+	float y_s = y_scale;
+	float x_s = x_scale;
+	float y_d = y_shift;
+	
+	if (animate_x_scale) {
+		x_s *= 1.0 + 0.5 * get_phase();
+	}
+	
+	if (animate_y_scale) {
+		y_s *= 0.501 + 0.5 * get_phase();
+	}
+	
+	if (animate_y_shift) {
+		y_d = max(y_d, 1.0) * get_phase();
+	}
+	
+	// Apply x scale
+	x /= x_s;
+	
+	// TAU = PI * 2. Scales sinusoid to make each wave hit integer numbers
+	float y = cos(x * TAU);
+	// Apply Y scale and Y shift
+	y = y * y_s + y_d;
+	if (apply_abs) {
+		y = abs(y);
+	}
+	
+	// Complex example
+//	return x * abs(pow(abs(y), 0.5) - 0.7) * 2.0;
+
+//	return pow(x, 0.5) * cos(x * 10.0);
+//	return mix(pow(x, 0.5), cos(x * 10.0), 0.3);
+//	return cos(pow(x, 2.0) * 10.0);
+//	return pow(cos(x * 10.0), 0.5);
+
+// return pow(x * 0.25, 2.0) * smoothstep(0.3, 0.7, 2.0 * abs(abs(y) - 0.5));
+	return y;
+}
+
+
+
+float uv2x(vec2 uv) {
+	if (uv.y > 0.5) {
+		uv.y = 0.5;
+	}
+	float x_d = x_shift;
+	if (animate_x_shift) {
+		x_d = max(x_d, 1.0) * get_phase();
+	}
+	vec2 adjusted = (2.0 * uv - 1.0) * size_adjust - vec2(x_d, 0.0);
+	if (apply_mirror) {
+//		return abs(2.0 * uv.x * size_adjust - x_d);
+		return abs((2.0 * uv.x - 1.0) * size_adjust) - x_d;
+	}
+	return length(adjusted);
+}
+
+float uv2surface(vec2 uv) {
+	return get_curve_value(uv2x(uv))
+//	 * smoothstep(1.0, 0.9, uv.y) // Flatten front
+	 * smoothstep(1.4, 0.7, length(uv - 0.5) * 2.0) // Flatten corners
+	;
+}
+
+vec3 calculate_normal(vec2 uv) {
+	const vec2 eps = vec2(0.02, 0.0);
+	return normalize(vec3(
+		uv2surface(uv - eps) - uv2surface(uv + eps),
+		eps.x,
+		uv2surface(uv - eps.yx) - uv2surface(uv + eps.yx)
+	));
+}
+
+void vertex() {
+	if (UV.y <= 0.501) {
+		float height = uv2surface(UV);
+		VERTEX += NORMAL * height;
+		NORMAL = calculate_normal(UV);
+	}
+}
+
+void fragment() {
+	ALBEDO = albedo.rgb;
+	if (UV.y > 0.5) {
+		vec3 norm = (VIEW_MATRIX * vec4(0.0, 0.0, 1.0, 0.0)).xyz;
+		if (-norm.y < norm.z) {
+			discard; // Slice front half
+		}
+		ALBEDO *= pow(uv2surface(UV), 2.2);
+	} 
+
+	ROUGHNESS = 0.5;
+	METALLIC = 0.5;
+}
+"

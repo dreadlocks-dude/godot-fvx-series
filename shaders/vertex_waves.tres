@@ -1,0 +1,21 @@
+[gd_resource type="Shader" format=3 uid="uid://bxbyvgnmfc4xd"]
+
+[resource]
+code = "shader_type spatial;
+render_mode cull_disabled;
+
+uniform vec4 albedo: source_color;
+uniform float frequency = 20.0;
+uniform float amplitude = 0.1;
+
+void vertex() {
+	float distance_from_center = length(UV - 0.5) * 2.0;
+	float height = cos(distance_from_center * PI * frequency);
+	VERTEX += NORMAL * amplitude * height;
+}
+
+void fragment() {
+	if (UV.x > UV.y) discard; // Slice in half
+	ALBEDO = albedo.rgb;
+}
+"

@@ -1,0 +1,135 @@
+[gd_scene load_steps=16 format=3 uid="uid://bf6mj4bgsl5jj"]
+
+[ext_resource type="Material" uid="uid://baimr8mo202x6" path="res://materials/sinusoid_playground.tres" id="3_603a6"]
+[ext_resource type="Shader" path="res://shaders/cartesian_plane.gdshader" id="3_wj3qr"]
+[ext_resource type="Texture2D" uid="uid://n24uvu7twk6v" path="res://textures/CartesianPlane.png" id="4_dg70s"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_q5xke"]
+sky_horizon_color = Color(0.647059, 0.654902, 0.670588, 1)
+ground_bottom_color = Color(0.2, 0.2, 0.2, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_526hf"]
+sky_material = SubResource("ProceduralSkyMaterial_q5xke")
+
+[sub_resource type="Environment" id="Environment_lh61n"]
+background_mode = 2
+sky = SubResource("Sky_526hf")
+reflected_light_source = 2
+tonemap_mode = 3
+ssr_max_steps = 128
+ssao_light_affect = 1.0
+ssao_ao_channel_affect = 1.0
+sdfgi_cascades = 8
+sdfgi_min_cell_size = 0.00244141
+sdfgi_cascade0_distance = 0.15625
+sdfgi_max_distance = 40.0001
+sdfgi_y_scale = 2
+sdfgi_energy = 0.5
+glow_levels/1 = 1.0
+glow_levels/3 = 0.0
+glow_levels/5 = 0.0
+glow_blend_mode = 1
+glow_hdr_threshold = 0.38
+glow_hdr_scale = 1.39
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_7p4ml"]
+load_path = "res://.godot/imported/TemplateGrid_orm.png-b239894fee9fd11c81a9abe46c69d9af.s3tc.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_rxel0"]
+load_path = "res://.godot/imported/TemplateGrid_normal.png-f5a1113114b53fbcc4cc7dd4ffaa29ad.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_v3wb1"]
+load_path = "res://.godot/imported/TemplateGrid_orm.png-b239894fee9fd11c81a9abe46c69d9af.s3tc.ctex"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nrgue"]
+metallic = 0.5
+metallic_texture = SubResource("CompressedTexture2D_7p4ml")
+metallic_texture_channel = 1
+roughness_texture = SubResource("CompressedTexture2D_v3wb1")
+roughness_texture_channel = 1
+emission = Color(1, 1, 1, 1)
+emission_energy_multiplier = 0.15
+normal_enabled = true
+normal_texture = SubResource("CompressedTexture2D_rxel0")
+uv1_scale = Vector3(100, 100, 100)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_4i0kc"]
+size = Vector2(100, 100)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mrk85"]
+render_priority = 0
+shader = ExtResource("3_wj3qr")
+shader_parameter/albedo_texture = ExtResource("4_dg70s")
+
+[sub_resource type="QuadMesh" id="QuadMesh_lg4pw"]
+size = Vector2(2.393, 1.444)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ebtww"]
+size = Vector2(3, 3)
+subdivide_width = 400
+subdivide_depth = 400
+
+[sub_resource type="GDScript" id="GDScript_5ft10"]
+script/source = "@tool
+extends SpotLight3D
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	#self.shadow_opacity = 1.0 - randf() * 0.01
+	#print(self.shadow_opacity)
+	self.spot_range += randf() * 0.01
+	pass
+"
+
+[node name="SinusoidPlayground" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_lh61n")
+
+[node name="Sun" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 3.36679, 4.64816, -4.46818)
+light_energy = 0.286
+shadow_enabled = true
+shadow_bias = 0.01
+shadow_reverse_cull_face = true
+directional_shadow_max_distance = 40.4
+
+[node name="FloorMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.865, 0, 0, 0, 1, 0, 0, 0, 0.865, 0, 0.00580871, 0)
+material_override = SubResource("StandardMaterial3D_nrgue")
+mesh = SubResource("PlaneMesh_4i0kc")
+skeleton = NodePath("")
+metadata/_edit_lock_ = true
+
+[node name="Cartesian" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.878054, 0)
+material_override = SubResource("ShaderMaterial_mrk85")
+mesh = SubResource("QuadMesh_lg4pw")
+
+[node name="Waves" type="MeshInstance3D" parent="Cartesian"]
+transform = Transform3D(1.09, 0, 0, 0, 0.22, 0, 0, 0, 1.09, 0, -0.018, 0)
+layers = 5
+material_override = ExtResource("3_603a6")
+mesh = SubResource("PlaneMesh_ebtww")
+skeleton = NodePath("")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="Cartesian/Waves"]
+transform = Transform3D(0.741976, -0.126117, 0.658458, 0, 0.982147, 0.188115, -0.670427, -0.139577, 0.728729, 2.90235, 9.9318, 2.87893)
+light_color = Color(0, 0.662745, 0.423529, 1)
+light_energy = 0.205
+shadow_enabled = true
+shadow_bias = 0.01
+shadow_normal_bias = 3.049
+shadow_opacity = 0.991001
+spot_range = 24102.3
+spot_attenuation = 1e-05
+spot_angle = 38.079
+spot_angle_attenuation = 1e-05
+script = SubResource("GDScript_5ft10")

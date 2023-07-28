@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://cq8a5o6joau8w"]
+
+[ext_resource type="PackedScene" uid="uid://3tn6fclrin6c" path="res://scenes/floor.tscn" id="1_h2d28"]
+[ext_resource type="Material" uid="uid://ctidsogv6oiw8" path="res://materials/RedGradient.tres" id="2_4pr0j"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_tmnma"]
+
+[node name="Sample1" type="Node3D"]
+
+[node name="Floor" parent="." instance=ExtResource("1_h2d28")]
+
+[node name="Quad" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.707107, -0.169867, 0.6864, 0, 0.970716, 0.240229, -0.707107, -0.169867, 0.6864, 0.104053, 0.499985, 0.0881054)
+material_override = ExtResource("2_4pr0j")
+mesh = SubResource("QuadMesh_tmnma")

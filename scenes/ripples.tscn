@@ -1,0 +1,64 @@
+[gd_scene load_steps=10 format=3 uid="uid://beroki2y3jbhh"]
+
+[ext_resource type="Shader" uid="uid://bxbyvgnmfc4xd" path="res://shaders/vertex_waves.tres" id="1_wluil"]
+[ext_resource type="PackedScene" uid="uid://3tn6fclrin6c" path="res://scenes/floor.tscn" id="2_bfsop"]
+[ext_resource type="Texture2D" uid="uid://b0ca8bn3twyr3" path="res://textures/grid/TemplateGrid_albedo.png" id="2_ycfk6"]
+[ext_resource type="Shader" path="res://shaders/metal_ripples.gdshader" id="3_w27ni"]
+[ext_resource type="Texture2D" uid="uid://buljify4aiv5f" path="res://textures/grid/TemplateGrid_normal.png" id="4_jeouk"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_opohf"]
+render_priority = 0
+shader = ExtResource("1_wluil")
+shader_parameter/albedo = Color(0.67451, 0.780392, 0.807843, 1)
+shader_parameter/frequency = 9.0
+shader_parameter/amplitude = 0.06
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ebtww"]
+subdivide_width = 200
+subdivide_depth = 200
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_a2g2l"]
+render_priority = 0
+shader = ExtResource("3_w27ni")
+shader_parameter/albedo = Color(0.262745, 0.262745, 0.262745, 1)
+shader_parameter/normal_map = ExtResource("4_jeouk")
+shader_parameter/albedo_tex = ExtResource("2_ycfk6")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_w4u7a"]
+
+[node name="Ripples" type="Node3D"]
+
+[node name="Waves" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0.547692, -1.36813)
+layers = 5
+material_override = SubResource("ShaderMaterial_opohf")
+mesh = SubResource("PlaneMesh_ebtww")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Waves"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0981163, 0.417018, -0.2786)
+layers = 4
+shadow_enabled = true
+shadow_bias = 0.005
+shadow_blur = 2.395
+omni_range = 1.43038
+omni_attenuation = 1.32835e-05
+
+[node name="FloorMesh" parent="." instance=ExtResource("2_bfsop")]
+metadata/_edit_lock_ = true
+
+[node name="MetalRipples" type="MeshInstance3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.0206388, 0.467402, 0.967131)
+layers = 5
+material_override = SubResource("ShaderMaterial_a2g2l")
+mesh = SubResource("PlaneMesh_w4u7a")
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="MetalRipples"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1.26709, 0.497308, -1.10155)
+layers = 4
+light_specular = 4.847
+light_cull_mask = 4294967294
+shadow_enabled = true
+shadow_bias = 0.005
+shadow_blur = 2.395
+omni_range = 3.241
+omni_attenuation = 0.183011

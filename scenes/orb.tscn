@@ -1,0 +1,100 @@
+[gd_scene load_steps=8 format=3 uid="uid://jivl2cajbsjk"]
+
+[ext_resource type="PackedScene" uid="uid://3tn6fclrin6c" path="res://scenes/floor.tscn" id="1_apimr"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7o6ja"]
+roughness = 0.2
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_7sqwp"]
+top_radius = 0.3
+bottom_radius = 0.3
+
+[sub_resource type="BoxMesh" id="BoxMesh_vwfox"]
+
+[sub_resource type="Shader" id="Shader_74hmo"]
+code = "shader_type spatial;
+render_mode unshaded;      // No default shading
+render_mode blend_mix;     // Mix dark areas as well as bright ones
+render_mode cull_disabled; // Show back side of the orb
+
+// Make color selectable in UI
+uniform vec4  orb_color:   source_color;                 
+
+// Make curvature selectable in UI with a slider, equal to 3 by default.
+uniform float curve_power: hint_range(0.01, 10.0) = 3.0;
+uniform float brightness: hint_range(0.01, 10.0) = 1.0;
+
+// We custom function to wrap around out formula, we can re-use it later
+float curve(float x) {
+   // Our \"magic formula\" - just a simple <X> to the power of <curve_power>
+   return pow(x, curve_power);
+}
+
+// Built-in function name, without it nothing gets drawn
+void fragment() {
+   // Dot product = cosine of the angle between vectors
+   // One of the most useful shader tricks, used literally everywhere    
+   // It tells us where the pixel \"looks at\"
+   // 1.0 == \"looks straight at us\"
+   // 0.0 == \"looks\" to the side (left, right, up, anywhere on the rim)
+   // -1.0 == It looks away from camera view
+   float VdotN = dot(VIEW, NORMAL); 
+   
+   // Makes orb transparent in the middle, and \"thick\" at the rim 
+   float view_angle = 1.0 - abs(VdotN); 
+
+   // Now we apply curve to the original color
+   // We calculate \"how much of the color to retain\"
+   // When curve() gives us low number - orb is transparent
+   // Hight number - orb is visible
+   vec4 new_color = orb_color * curve(view_angle); 
+   
+   // We apply new color, only RGB component. 
+   // There is also new_color.a - ALPHA (transparency) component
+   // But it just looks cooler not to use it :) You can experiment and see
+   ALBEDO = new_color.rgb;
+   
+   ALBEDO *= brightness; // Make it brighter or darker
+
+   // Use original transparency that user picked in the UI
+   // If we don't put ALPHA value, orb won't be transparent at all
+   ALPHA = orb_color.a;
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vid8l"]
+render_priority = 0
+shader = SubResource("Shader_74hmo")
+shader_parameter/orb_color = Color(1, 0, 0, 0.639216)
+shader_parameter/curve_power = 4.393
+shader_parameter/brightness = 1.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_1dnmu"]
+
+[node name="OrbExample" type="Node3D"]
+
+[node name="FloorMesh" parent="." instance=ExtResource("1_apimr")]
+
+[node name="Cyllinder" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.649377, -0.273206, 0.269444)
+visible = false
+material_override = SubResource("StandardMaterial3D_7o6ja")
+mesh = SubResource("CylinderMesh_7sqwp")
+
+[node name="Cube" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.99999, 0.00443312, 0, -0.00443312, 0.99999, 0, 0, 0, 1, 0.506641, -0.00331569, -0.481883)
+visible = false
+material_override = SubResource("StandardMaterial3D_7o6ja")
+mesh = SubResource("BoxMesh_vwfox")
+
+[node name="Orb" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.57, 0, 0, 0, 1.57, 0, 0, 0, 1.57, -0.180042, 0.232531, -0.000249505)
+material_override = SubResource("ShaderMaterial_vid8l")
+mesh = SubResource("SphereMesh_1dnmu")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Orb"]
+visible = false
+light_color = Color(1, 0, 0, 1)
+light_energy = 0.01
+light_size = 3.625
+omni_range = 0.888
+omni_attenuation = 0.0743255

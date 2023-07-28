@@ -1,0 +1,41 @@
+[gd_scene load_steps=5 format=3 uid="uid://cd3rykle8yl75"]
+
+[ext_resource type="PackedScene" uid="uid://3tn6fclrin6c" path="res://scenes/floor.tscn" id="1_7ovp5"]
+
+[sub_resource type="Shader" id="Shader_f80sy"]
+code = "shader_type spatial;
+render_mode unshaded, cull_disabled;
+
+uniform float left_edge: hint_range(0.0, 1.0) = 0.0;
+uniform float right_edge: hint_range(0.0, 1.0) = 1.0;
+
+void vertex() {
+	VERTEX += NORMAL * smoothstep(left_edge, right_edge, UV.x);
+}
+
+void fragment() {
+	ALBEDO = vec3(1.0, 0.0, 0.0) * smoothstep(left_edge, right_edge, UV.x);
+	ALBEDO = pow(ALBEDO, vec3(2.2)); // sRGB color space
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lq1li"]
+render_priority = 0
+shader = SubResource("Shader_f80sy")
+shader_parameter/left_edge = 0.0
+shader_parameter/right_edge = 1.0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_dq6ph"]
+size = Vector2(2.5, 1)
+subdivide_width = 100
+subdivide_depth = 10
+
+[node name="SmoothStep" type="Node3D"]
+
+[node name="FloorMesh" parent="." instance=ExtResource("1_7ovp5")]
+metadata/_edit_lock_ = true
+
+[node name="Mesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.183845, 0)
+material_override = SubResource("ShaderMaterial_lq1li")
+mesh = SubResource("PlaneMesh_dq6ph")

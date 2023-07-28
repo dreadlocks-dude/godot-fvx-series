@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://buj232yasg1cc"]
+
+[ext_resource type="PackedScene" uid="uid://3tn6fclrin6c" path="res://scenes/floor.tscn" id="1_6d74e"]
+
+[sub_resource type="Shader" id="Shader_hxsnt"]
+code = "shader_type spatial;
+
+void fragment() {
+	float curved_value = pow(UV.x, 3.0);
+	vec3 red_color = vec3(1.0, 0.0, 0.0);
+	ALBEDO = red_color * curved_value;
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dg06g"]
+render_priority = 0
+shader = SubResource("Shader_hxsnt")
+
+[sub_resource type="QuadMesh" id="QuadMesh_tmnma"]
+
+[node name="Sample1" type="Node3D"]
+
+[node name="Floor" parent="." instance=ExtResource("1_6d74e")]
+
+[node name="Strip" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.51518, -0.135996, 1.47081, 0, 0.777157, 0.514758, -1.51518, -0.135996, 1.47081, 0.0652331, 0.39508, 0.0579912)
+material_override = SubResource("ShaderMaterial_dg06g")
+mesh = SubResource("QuadMesh_tmnma")

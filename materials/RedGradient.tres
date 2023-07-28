@@ -1,0 +1,29 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://ctidsogv6oiw8"]
+
+[sub_resource type="Shader" id="Shader_ewmsx"]
+code = "shader_type spatial;
+
+uniform float curvature: hint_range(0.01, 10.0) = 1.0;
+uniform vec4  albedo: source_color;
+
+float getX(vec2 uv) {
+	// Try one of these:
+//	return uv.x;
+//	return uv.y;
+//	return uv.x + uv.y;
+//	return length(uv);
+//	return uv.x * uv.y;
+	return uv.x / uv.y;
+}
+
+void fragment() {
+	float curved_value = pow(getX(UV), curvature);
+	ALBEDO = albedo.rgb * curved_value;
+}
+"
+
+[resource]
+render_priority = 0
+shader = SubResource("Shader_ewmsx")
+shader_parameter/curvature = 4.227
+shader_parameter/albedo = Color(1, 0, 0, 1)

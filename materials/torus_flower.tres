@@ -1,0 +1,12 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://cl7e22c35fu4f"]
+
+[ext_resource type="Shader" path="res://shaders/torus.gdshader" id="1_qbbu7"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_qbbu7")
+shader_parameter/distortion_amount = 0.15
+shader_parameter/distortion_speed = 0.25
+shader_parameter/ribs_count = 6
+shader_parameter/twist_loops = 12
+shader_parameter/rotation_speed = 1.0

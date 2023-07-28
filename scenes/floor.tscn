@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://3tn6fclrin6c"]
+
+[ext_resource type="Material" uid="uid://cm5r0usu6psp2" path="res://materials/floor.tres" id="1_e5ixc"]
+[ext_resource type="Environment" uid="uid://bkpugk6n20mxh" path="res://resources/simple-blur-environmnent.tres" id="4_sikkw"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_4i0kc"]
+size = Vector2(100, 100)
+
+[node name="FloorMesh" type="MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00580871, 0)
+material_override = ExtResource("1_e5ixc")
+mesh = SubResource("PlaneMesh_4i0kc")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("4_sikkw")
+
+[node name="Sun" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 3.36679, 4.64235, -4.46818)
+light_energy = 0.5
+shadow_enabled = true
+shadow_bias = 0.05
+shadow_blur = 0.15
+directional_shadow_max_distance = 40.4

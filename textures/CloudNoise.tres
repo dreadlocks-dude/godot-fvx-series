@@ -1,0 +1,9 @@
+[gd_resource type="NoiseTexture2D" load_steps=2 format=3 uid="uid://bwpsx6wtxc2m7"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_msrew"]
+noise_type = 0
+cellular_jitter = 1.12
+
+[resource]
+seamless_blend_skirt = 0.3
+noise = SubResource("FastNoiseLite_msrew")
